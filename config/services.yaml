@@ -1,0 +1,94 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+  mail.from_email: "%env(MAIL_FROM_EMAIL)%"
+  mail.from_name: "%env(MAIL_FROM_NAME)%"
+  mail.notifications: "%env(json:MAIL_NOTIFICATIONS)%"
+  base.url: "%env(WEBSITE_BASE_URL)%"
+  base.name: "%env(WEBSITE_NAME)%"
+  base.description: "%env(WEBSITE_DESCRIPTION)%"
+  base.version_deploy: "%env(VERSION_DEPLOY)%"
+  file.directory_upload: "%env(FILE_DIRECTORY_UPLOAD)%"
+  smsaero.login: "%env(SMSAERO_LOGIN)%"
+  smsaero.api_key: "%env(SMSAERO_API_KEY)%"
+  smsaero.sign: "%env(SMSAERO_SIGN)%"
+  robokassa.login: "%env(ROBOKASSA_LOGIN)%"
+  robokassa.pass1: "%env(ROBOKASSA_PASS1)%"
+  robokassa.pass2: "%env(ROBOKASSA_PASS2)%"
+  robokassa.test: "%env(ROBOKASSA_IS_TEST)%"
+  robokassa.is_recurrent: "%env(ROBOKASSA_IS_RECURRENT)%"
+  site.mail: "%env(SITE_MAIL)%"
+  site.address: "%env(SITE_ADDRESS)%"
+  site.metrika_id: "%env(SITE_METRIKA_ID)%"
+  socket.port: "%env(GOS_WEB_SOCKET_SERVER_PORT)%"
+  socket.ip: "%env(GOS_WEB_SOCKET_SERVER_IP)%"
+  socket.url: "%env(GOS_WEB_SOCKET_URL)%"
+  socket.salt: "%env(GOS_WEB_SOCKET_SALT)%"
+  facecast.uid: "%env(FACECAST_UID)%"
+  facecast.api_key: "%env(FACECAST_API_KEY)%"
+  facecast.channel_name: "%env(FACECAST_CHANNEL_NAME)%"
+  facecast.key_salt: "%env(FACECAST_KEY_SALT)%"
+  app.metrika.token: "%env(APP_METRIKA_TOKEN)%"
+  app.metrika.group_id: "%env(APP_METRIKA_GROUP_ID)%"
+  video_formatter.url: "%env(VIDEO_FORMATTER_URL)%"
+  ab.test: "%env(AB_TEST_VALUE)%"
+
+services:
+  app.topic.chat:
+    class: App\AppBundle\Topic\ChatTopic
+    tags:
+      - { name: gos_web_socket.topic }
+  app.topic.comments:
+    class: App\AppBundle\Topic\CommentsTopic
+    tags:
+      - { name: gos_web_socket.topic }
+  app.topic.events:
+    class: App\AppBundle\Topic\EventsTopic
+    tags:
+      - { name: gos_web_socket.topic }
+  app.topic.feedback:
+    class: App\AppBundle\Topic\FeedbackTopic
+    tags:
+      - { name: gos_web_socket.topic }
+  app.twig.extension.loader:
+    class: Twig\Extension\StringLoaderExtension
+    tags:
+      - { name: "twig.extension" }
+  app.consumer.mail_sender:
+    class: App\AppBundle\Consumer\MailSenderConsumer
+    arguments: ["@old_sound_rabbit_mq.lrclub_delayed_send_email_producer"]
+  app.consumer.sms_sender:
+    class: App\AppBundle\Consumer\SMSSenderConsumer
+    arguments: ["@old_sound_rabbit_mq.lrclub_delayed_send_sms_producer"]
+  app.consumer.video_formatter_sender:
+    class: App\AppBundle\Consumer\VideoFormatterSenderConsumer
+  app.consumer.chat_sender:
+    class: App\AppBundle\Consumer\ChatSenderConsumer
+  app.consumer.comments_sender:
+    class: App\AppBundle\Consumer\CommentsSenderConsumer
+  app.consumer.events_sender:
+    class: App\AppBundle\Consumer\EventsSenderConsumer
+  app.consumer.feedback_sender:
+    class: App\AppBundle\Consumer\FeedbackSenderConsumer
+  App\EventSubscriber\RequestSubscriber:
+  App\EventSubscriber\PaymentSubscriber:
+  App\EventSubscriber\ModerationSubscriber:
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\:
+    resource: "../src/"
+    exclude:
+      - "../src/DependencyInjection/"
+      - "../src/Entity/"
+      - "../src/Kernel.php"
+      - "../src/Tests/"
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones

@@ -1,0 +1,12 @@
+twig:
+  default_path: "%kernel.project_dir%/../_resources/templates/"
+  globals:
+    service: '@App\Services\TwigServices'
+
+services:
+  Twig\DeferredExtension\DeferredExtension:
+    tags: [{ name: twig.extension }]
+
+when@test:
+  twig:
+    strict_variables: true

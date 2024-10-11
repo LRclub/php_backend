@@ -1,0 +1,9 @@
+gos_web_socket:
+  authentication:
+    enable_authenticator: true
+  server:
+    port: "%env(int:GOS_WEB_SOCKET_SERVER_PORT)%"
+    host: "%env(GOS_WEB_SOCKET_SERVER_IP)%"
+    router:
+      resources:
+        - "%kernel.project_dir%/config/pubsub/routing.yaml"

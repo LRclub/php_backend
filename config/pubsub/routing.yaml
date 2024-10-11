@@ -1,0 +1,23 @@
+app_topic_chat:
+  channel: "chat/{chat_id}/{action}"
+  callback: "app.topic.chat"
+  requirements:
+    action: "send|edit|delete|listen"
+
+app_comments:
+  channel: "comments/{comment_collector_id}/{action}"
+  callback: "app.topic.comments"
+  requirements:
+    action: "send|edit|delete|like"
+
+app_events:
+  channel: "events/{id}/{action}"
+  callback: "app.topic.events"
+  requirements:
+    action: "likes|comments"
+
+app_feedback:
+  channel: "feedback/{id}/{action}"
+  callback: "app.topic.feedback"
+  requirements:
+    action: "send|edit|delete"

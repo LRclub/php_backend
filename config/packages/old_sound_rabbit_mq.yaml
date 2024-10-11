@@ -1,0 +1,107 @@
+old_sound_rabbit_mq:
+  connections:
+    default:
+      host: "%env(RABBIT_HOST)%"
+      port: "%env(RABBIT_PORT)%"
+      user: "%env(RABBIT_LOGIN)%"
+      password: "%env(RABBIT_PASS)%"
+      vhost: /
+      lazy: false
+      connection_timeout: 30
+      read_write_timeout: 30
+      keepalive: false
+      heartbeat: 0
+      use_socket: true
+  producers:
+    lrclub_send_email:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_email", type: direct }
+    lrclub_delayed_send_email:
+      connection: default
+      exchange_options:
+        name: "notification.v1.lrclub_send_email_delayed_30000"
+        type: direct
+      queue_options:
+        name: "notification.v1.lrclub_send_email_delayed_30000"
+        arguments:
+          x-message-ttl: ["I", 300000]
+          x-dead-letter-exchange: ["S", "notification.v1.lrclub_send_email"]
+    lrclub_send_sms:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_sms", type: direct }
+    lrclub_delayed_send_sms:
+      connection: default
+      exchange_options:
+        name: "notification.v1.lrclub_send_sms_delayed_30000"
+        type: direct
+      queue_options:
+        name: "notification.v1.lrclub_send_sms_delayed_30000"
+        arguments:
+          x-message-ttl: ["I", 300000]
+          x-dead-letter-exchange: ["S", "notification.v1.lrclub_send_sms"]
+    lrclub_send_chat:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_chat", type: direct }
+    lrclub_send_comments:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_comments", type: direct }
+    lrclub_send_events:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_events", type: direct }
+    lrclub_send_feedback:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_feedback", type: direct }
+    lrclub_video_formatter:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_video_formatter", type: direct }
+
+  consumers:
+    lrclub_send_email:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_email", type: direct }
+      queue_options: { name: "notification.v1.lrclub_send_email" }
+      callback: app.consumer.mail_sender
+    lrclub_send_sms:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_sms", type: direct }
+      queue_options: { name: "notification.v1.lrclub_send_sms" }
+      callback: app.consumer.sms_sender
+    lrclub_send_chat:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_chat", type: direct }
+      queue_options: { name: "notification.v1.lrclub_send_chat" }
+      callback: app.consumer.chat_sender
+    lrclub_send_comments:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_comments", type: direct }
+      queue_options: { name: "notification.v1.lrclub_send_comments" }
+      callback: app.consumer.comments_sender
+    lrclub_send_events:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_events", type: direct }
+      queue_options: { name: "notification.v1.lrclub_send_events" }
+      callback: app.consumer.events_sender
+    lrclub_send_feedback:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_send_feedback", type: direct }
+      queue_options: { name: "notification.v1.lrclub_send_feedback" }
+      callback: app.consumer.feedback_sender
+    lrclub_video_formatter:
+      connection: default
+      exchange_options:
+        { name: "notification.v1.lrclub_video_formatter", type: direct }
+      queue_options: { name: "notification.v1.lrclub_video_formatter" }
+      callback: app.consumer.video_formatter_sender

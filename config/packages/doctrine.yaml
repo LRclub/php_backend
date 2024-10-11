@@ -1,0 +1,36 @@
+doctrine:
+  dbal:
+    default_connection: app
+    connections:
+      app:
+        url: "%env(resolve:DATABASE_URL)%"
+      #remote:
+      #  url: "%env(resolve:DATABASE_SPARE_URL)%"
+  orm:
+    auto_generate_proxy_classes: false
+    default_entity_manager: app
+    entity_managers:
+      app:
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        dql:
+          datetime_functions:
+            FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime
+            DATEDIFF: DoctrineExtensions\Query\Mysql\DateDiff
+            NOW: DoctrineExtensions\Query\Mysql\Now
+        mappings:
+          Local:
+            is_bundle: false
+            type: annotation
+            dir: "%kernel.project_dir%/src/Entity"
+            prefix: 'App\Entity'
+            alias: App
+      #remote:
+      #  naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+      #  connection: remote
+      #  mappings:
+      #    Remote:
+      #      is_bundle: false
+      #      type: annotation
+      #      dir: "%kernel.project_dir%/src/Entity"
+      #      prefix: 'App\Entity'
+      #      alias: App
