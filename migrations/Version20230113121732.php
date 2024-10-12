@@ -25,7 +25,7 @@ final class Version20230113121732 extends AbstractMigration
         $this->addSql('DROP TABLE subscription_history_user');
         $this->addSql('ALTER TABLE subscription_history ADD user_id INT NOT NULL');
         $this->addSql('ALTER TABLE subscription_history ADD CONSTRAINT FK_54AF90D0A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_54AF90D0A76ED395 ON subscription_history (user_id)');
+        $this->addSql('CREATE INDEX  IDX_54AF90D0A76ED395 ON subscription_history (user_id)');
     }
 
     public function down(Schema $schema): void

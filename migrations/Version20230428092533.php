@@ -26,7 +26,7 @@ final class Version20230428092533 extends AbstractMigration
         $this->addSql('ALTER TABLE materials ADD CONSTRAINT FK_9B1716B5FAE957CD FOREIGN KEY (preview_image_id) REFERENCES files (id)');
         $this->addSql('ALTER TABLE materials ADD CONSTRAINT FK_9B1716B512469DE2 FOREIGN KEY (category_id) REFERENCES materials_categories (id)');
         $this->addSql('CREATE UNIQUE INDEX IF NOT EXISTS UNIQ_9B1716B5FAE957CD ON materials (preview_image_id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_9B1716B512469DE2 ON materials (category_id)');
+        $this->addSql('CREATE INDEX  IDX_9B1716B512469DE2 ON materials (category_id)');
     }
 
     public function down(Schema $schema): void

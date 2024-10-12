@@ -22,7 +22,7 @@ final class Version20231128102259 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE user ADD country_id INT DEFAULT NULL, ADD vk VARCHAR(255) DEFAULT NULL, ADD telegram VARCHAR(255) DEFAULT NULL, ADD instagram VARCHAR(255) DEFAULT NULL, ADD ok VARCHAR(255) DEFAULT NULL, ADD city VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D649F92F3E70 FOREIGN KEY (country_id) REFERENCES countries (id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_8D93D649F92F3E70 ON user (country_id)');
+        $this->addSql('CREATE INDEX  IDX_8D93D649F92F3E70 ON user (country_id)');
     }
 
     public function down(Schema $schema): void

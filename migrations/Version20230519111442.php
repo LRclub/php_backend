@@ -22,7 +22,7 @@ final class Version20230519111442 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE invoice ADD promocode_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE invoice ADD CONSTRAINT FK_90651744C76C06D9 FOREIGN KEY (promocode_id) REFERENCES promocodes (id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_90651744C76C06D9 ON invoice (promocode_id)');
+        $this->addSql('CREATE INDEX  IDX_90651744C76C06D9 ON invoice (promocode_id)');
     }
 
     public function down(Schema $schema): void

@@ -1,0 +1,76 @@
+FROM php:7.4.30-apache
+
+RUN a2enmod headers rewrite
+RUN docker-php-ext-install mysqli pdo pdo_mysql exif
+
+RUN apt-get update \
+ && apt-get install --assume-yes --no-install-recommends --quiet \
+    build-essential \
+    libmagickwand-dev \
+ && apt-get clean all
+
+RUN pecl install imagick \
+ && docker-php-ext-enable imagick
+
+RUN apt-get update -y
+RUN apt-get install -y \
+    gpg-agent \
+    curl \
+    git \
+    imagemagick \
+    libgraphicsmagick1-dev \
+    libmagickwand-dev \
+    libcurl4-openssl-dev \
+    libxml2-dev \
+    libssl-dev \
+    openssl \
+    libzip-dev \
+    cron
+RUN	apt-get clean -y
+
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-install json
+RUN docker-php-ext-install curl
+RUN docker-php-ext-install fileinfo
+RUN docker-php-ext-install iconv
+RUN docker-php-ext-install zip
+
+
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN apt-get update -y && apt-get install -y libpng-dev libfreetype6-dev libjpeg-dev libbz2-dev libssl-dev
+
+RUN apt-get update \
+    && apt-get install -y \
+        libicu-dev \
+    && docker-php-ext-install -j$(nproc) \
+        intl \
+    && apt-get purge -y \
+        libicu-dev
+
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
+
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update -y && apt-get install nodejs yarn -y
+RUN apt-get install nano -y
+
+RUN docker-php-ext-install sockets
+
+RUN apt-get install -y supervisor
+
+#
+# UPDATE BASE IMAGE
+#
+# docker build -f Dockerfile.base -t base .
+# docker tag [IMAGE_BUILD_HASH] gitlab.sunadv.ru:5050/development/l.r.club:base
+# docker push gitlab.sunadv.ru:5050/development/l.r.club:base
+#

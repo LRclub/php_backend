@@ -30,7 +30,7 @@ final class Version20230407140631 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_6354059537A1329 ON files');
         $this->addSql('ALTER TABLE files CHANGE message_id feedback_message_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE files ADD CONSTRAINT FK_6354059F773D73 FOREIGN KEY (feedback_message_id) REFERENCES feedback_message (id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_6354059F773D73 ON files (feedback_message_id)');
+        $this->addSql('CREATE INDEX  IDX_6354059F773D73 ON files (feedback_message_id)');
     }
 
     public function down(Schema $schema): void
@@ -46,6 +46,6 @@ final class Version20230407140631 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_6354059F773D73 ON files');
         $this->addSql('ALTER TABLE files CHANGE feedback_message_id message_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE files ADD CONSTRAINT FK_6354059537A1329 FOREIGN KEY (message_id) REFERENCES message (id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_6354059537A1329 ON files (message_id)');
+        $this->addSql('CREATE INDEX  IDX_6354059537A1329 ON files (message_id)');
     }
 }

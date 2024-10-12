@@ -23,7 +23,7 @@ final class Version20230410144508 extends AbstractMigration
         $this->addSql('ALTER TABLE chat_message CHANGE comment message LONGTEXT NOT NULL');
         $this->addSql('ALTER TABLE files ADD chat_message_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE files ADD CONSTRAINT FK_6354059948B568F FOREIGN KEY (chat_message_id) REFERENCES chat_message (id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_6354059948B568F ON files (chat_message_id)');
+        $this->addSql('CREATE INDEX  IDX_6354059948B568F ON files (chat_message_id)');
     }
 
     public function down(Schema $schema): void

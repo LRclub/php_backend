@@ -36,12 +36,12 @@ final class Version20230403140231 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE courses ADD likes_collector_id INT NOT NULL');
         $this->addSql('ALTER TABLE courses ADD CONSTRAINT FK_A9A55A4C3873EDDD FOREIGN KEY (likes_collector_id) REFERENCES likes_collector (id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_A9A55A4C3873EDDD ON courses (likes_collector_id)');
+        $this->addSql('CREATE INDEX  IDX_A9A55A4C3873EDDD ON courses (likes_collector_id)');
         $this->addSql('ALTER TABLE materials ADD likes_collector_id INT NOT NULL');
         $this->addSql('ALTER TABLE materials ADD CONSTRAINT FK_9B1716B53873EDDD FOREIGN KEY (likes_collector_id) REFERENCES likes_collector (id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_9B1716B53873EDDD ON materials (likes_collector_id)');
+        $this->addSql('CREATE INDEX  IDX_9B1716B53873EDDD ON materials (likes_collector_id)');
         $this->addSql('ALTER TABLE streams ADD likes_collector_id INT NOT NULL');
         $this->addSql('ALTER TABLE streams ADD CONSTRAINT FK_FFF7AFA3873EDDD FOREIGN KEY (likes_collector_id) REFERENCES likes_collector (id)');
-        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_FFF7AFA3873EDDD ON streams (likes_collector_id)');
+        $this->addSql('CREATE INDEX  IDX_FFF7AFA3873EDDD ON streams (likes_collector_id)');
     }
 }
