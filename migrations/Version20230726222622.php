@@ -27,7 +27,7 @@ final class Version20230726222622 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE notification_flags (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, send_mail TINYINT(1) DEFAULT NULL, UNIQUE INDEX UNIQ_CDB1A443A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
+        $this->addSql('CREATE TABLE IF NOT EXISTS notification_flags (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, send_mail TINYINT(1) DEFAULT NULL, UNIQUE INDEX UNIQ_CDB1A443A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('ALTER TABLE notification_flags ADD CONSTRAINT FK_CDB1A443A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
     }
 }

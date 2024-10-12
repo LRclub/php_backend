@@ -27,7 +27,7 @@ final class Version20230321103444 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE user_visit_history (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, auth_time INT NOT NULL, INDEX IDX_9FBDD9DCA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
+        $this->addSql('CREATE TABLE IF NOT EXISTS user_visit_history (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, auth_time INT NOT NULL, INDEX IDX_9FBDD9DCA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('ALTER TABLE user_visit_history ADD CONSTRAINT FK_9FBDD9DCA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
     }
 }

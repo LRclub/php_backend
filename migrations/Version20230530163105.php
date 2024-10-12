@@ -20,7 +20,7 @@ final class Version20230530163105 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE specialists (id INT AUTO_INCREMENT NOT NULL, fio VARCHAR(255) NOT NULL, experience LONGTEXT NOT NULL, price DOUBLE PRECISION NOT NULL, sort INT DEFAULT NULL, is_active TINYINT(1) DEFAULT NULL, speciality VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE IF NOT EXISTS specialists (id INT AUTO_INCREMENT NOT NULL, fio VARCHAR(255) NOT NULL, experience LONGTEXT NOT NULL, price DOUBLE PRECISION NOT NULL, sort INT DEFAULT NULL, is_active TINYINT(1) DEFAULT NULL, speciality VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void

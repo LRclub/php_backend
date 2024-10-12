@@ -20,7 +20,7 @@ final class Version20230608111030 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE journal_workbook (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, goal LONGTEXT DEFAULT NULL, result LONGTEXT DEFAULT NULL, date DATE NOT NULL, INDEX IDX_2C5040EEA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE IF NOT EXISTS journal_workbook (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, goal LONGTEXT DEFAULT NULL, result LONGTEXT DEFAULT NULL, date DATE NOT NULL, INDEX IDX_2C5040EEA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE journal_workbook ADD CONSTRAINT FK_2C5040EEA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
     }
 
