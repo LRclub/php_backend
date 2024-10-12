@@ -13,10 +13,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PanelController extends BaseApiController
 {
-   
-      
-       @Route("/panel/settings", name="panel_user", methods={"GET"})
-   
+    /**
+     * Профиль пользователя
+     *
+     * @Route("/panel/settings", name="panel_user", methods={"GET"})
+     */
     public function panelSettingsAction(): Response
     {
         return $this->render('/pages/panel/panel.html.twig', [
@@ -24,10 +25,11 @@ class PanelController extends BaseApiController
         ]);
     }
 
-   
-      
-       @Route("/panel/", name="panel_index", methods={"GET"})
-   
+    /**
+     * Главная страница панели
+     *
+     * @Route("/panel/", name="panel_index", methods={"GET"})
+     */
     public function indexAction(
         CoreSecurity $security,
         PanelServices $panelServices
@@ -43,12 +45,13 @@ class PanelController extends BaseApiController
         }
     }
 
-   
-      
-       @Route("/panel/profile/{id}", requirements={"id"="\d+"}, name="panel_user_profile", methods={"GET"})
-      
-      
-   
+    /**
+     * Профиль пользователя
+     *
+     * @Route("/panel/profile/{id}", requirements={"id"="\d+"}, name="panel_user_profile", methods={"GET"})
+     *
+     *
+     */
     public function profileAction(
         int $id,
         UserServices $userServices,
@@ -65,10 +68,11 @@ class PanelController extends BaseApiController
         ]);
     }
 
-   
-      
-       @Route("/panel/init", name="panel_init", methods={"GET"})
-   
+    /**
+     * Заполнение общей информации после регистрации
+     *
+     * @Route("/panel/init", name="panel_init", methods={"GET"})
+     */
     public function panelInitAction(CoreSecurity $security, PromocodeServices $promocodeServices): Response
     {
         $user = $security->getUser();

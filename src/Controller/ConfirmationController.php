@@ -24,10 +24,8 @@ class ConfirmationController extends BaseApiController
     /**
      * Подтверждение e-mail пользователя
      *
-     *
+     * @Route("/confirmation/{user_id}/{code}", name="confirmation", methods={"GET"}, requirements={"user_id"="\d+"})
      */
-     @Route("/confirmation/{user_id}/{code}", name="confirmation", methods={"GET"}, requirements={"user_id"="\d+"})
-     
     public function confirmationAction(
         EmailConfirmationServices $emailConfirmationServices,
         $user_id,

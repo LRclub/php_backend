@@ -30,31 +30,31 @@ class SMSController extends BaseApiController
     ) {
         $this->userEventHistoryServices = $userEventHistoryServices;
     }
-
-    //   Отправка кода для авторизации пользователя
-     
-      @Route("/api/sms", name="api_code_send", methods={"POST"})
-     
-      @OA\RequestBody(
-        @OA\MediaType(
-          mediaType="application/json",
-          @OA\Schema(
-            type="object",
-            @OA\Property(property="phone",
-                         type="string",
-                         description="Номер",
-                         example="+79888900000"
-      ),
-            @OA\Property(property="role", type="string", description="Роль пользователя", example="user")
-          )
-        )
-      )
-     
-      @OA\Response(response=200, description="Код успешно отправлен")
-      @OA\Response(response=400, description="Ошибка при отправке")
-     
-      @OA\Tag(name="authorization")
- 
+    /**
+     * Отправка кода для авторизации пользователя
+     *
+     * @Route("/api/sms", name="api_code_send", methods={"POST"})
+     *
+     * @OA\RequestBody(
+     *   @OA\MediaType(
+     *     mediaType="application/json",
+     *     @OA\Schema(
+     *       type="object",
+     *       @OA\Property(property="phone",
+     *                    type="string",
+     *                    description="Номер",
+     *                    example="+79888900000"
+     * ),
+     *       @OA\Property(property="role", type="string", description="Роль пользователя", example="user")
+     *     )
+     *   )
+     * )
+     *
+     * @OA\Response(response=200, description="Код успешно отправлен")
+     * @OA\Response(response=400, description="Ошибка при отправке")
+     *
+     * @OA\Tag(name="authorization")
+     */
     public function sendAction(
         KernelInterface $kernel,
         Request $request,
@@ -101,6 +101,7 @@ class SMSController extends BaseApiController
             'send_email' => !empty($find_user) && $find_user->getIsConfirmed()
         ];
 
+        //для демонстрации, без отправки СМС, сразу показываем пароль на фронте
         if ($kernel->getEnvironment() == 'dev') {
             $result['code'] = $authCode->getCode();
         } else {
@@ -127,55 +128,55 @@ class SMSController extends BaseApiController
         return $this->jsonSuccess($result);
     }
 
-
-    //   Прием ввода кода пользователя
-     
-      @Route("/api/sms", name="api_code_validate", methods={"PATCH"})
-     
-      @OA\RequestBody(
-        @OA\MediaType(
-          mediaType="application/json",
-          @OA\Schema(
-            type="object",
-            @OA\Property(property="code_id", type="string", description="Идентификатор запроса", example="100"),
-            @OA\Property(property="value", type="string", description="Код из SMS", example="101010"),
-            @OA\Property(property="utm", type="array",
-               example={
-                   {
-                       "utm_source": "google",
-                       "utm_medium": "cpc",
-                       "utm_campaign": "instrumenti-moskva",
-                       "utm_term": "балалайки",
-                       "utm_content": "context",
-                       "time": "1641325165"
-                   },
-                   {
-                       "utm_source": "yandex",
-                       "utm_medium": "cpc",
-                       "utm_campaign": "balalaiki-moskva",
-                       "utm_term": "купить балалайку в москве",
-                       "utm_content": "search",
-                       "time": "1642527272"
-                   }
-               },
-               @OA\Items(
-                   @OA\Property(property="utm_source",type="string",example="google"),
-                   @OA\Property(property="utm_medium",type="string",example="cpc"),
-                   @OA\Property(property="utm_campaign",type="string",example="instrumenti-moskva"),
-                   @OA\Property(property="utm_term",type="string",example="балалайки"),
-                   @OA\Property(property="utm_content",type="string",example="context"),
-                   @OA\Property(property="time",type="string",example="1641325165")
-               )
-            )
-          )
-        )
-      )
-     
-      @OA\Response(response=200, description="Пользователь успешно создан")
-      @OA\Response(response=400, description="Ошибка при создании")
-     
-      @OA\Tag(name="authorization")
- 
+    /**
+     * Прием ввода кода пользователя
+     *
+     * @Route("/api/sms", name="api_code_validate", methods={"PATCH"})
+     *
+     * @OA\RequestBody(
+     *   @OA\MediaType(
+     *     mediaType="application/json",
+     *     @OA\Schema(
+     *       type="object",
+     *       @OA\Property(property="code_id", type="string", description="Идентификатор запроса", example="100"),
+     *       @OA\Property(property="value", type="string", description="Код из SMS", example="101010"),
+     *       @OA\Property(property="utm", type="array",
+     *          example={
+     *              {
+     *                  "utm_source": "google",
+     *                  "utm_medium": "cpc",
+     *                  "utm_campaign": "instrumenti-moskva",
+     *                  "utm_term": "балалайки",
+     *                  "utm_content": "context",
+     *                  "time": "1641325165"
+     *              },
+     *              {
+     *                  "utm_source": "yandex",
+     *                  "utm_medium": "cpc",
+     *                  "utm_campaign": "balalaiki-moskva",
+     *                  "utm_term": "купить балалайку в москве",
+     *                  "utm_content": "search",
+     *                  "time": "1642527272"
+     *              }
+     *          },
+     *          @OA\Items(
+     *              @OA\Property(property="utm_source",type="string",example="google"),
+     *              @OA\Property(property="utm_medium",type="string",example="cpc"),
+     *              @OA\Property(property="utm_campaign",type="string",example="instrumenti-moskva"),
+     *              @OA\Property(property="utm_term",type="string",example="балалайки"),
+     *              @OA\Property(property="utm_content",type="string",example="context"),
+     *              @OA\Property(property="time",type="string",example="1641325165")
+     *          )
+     *       )
+     *     )
+     *   )
+     * )
+     *
+     * @OA\Response(response=200, description="Пользователь успешно создан")
+     * @OA\Response(response=400, description="Ошибка при создании")
+     *
+     * @OA\Tag(name="authorization")
+     */
     public function checkAction(
         Request $request,
         SMSServices $SMSServices,
@@ -244,22 +245,22 @@ class SMSController extends BaseApiController
         return $this->jsonSuccess($result);
     }
 
-
-    //   Отправка кода для авторизации пользователя путем email
-     
-      @Route("/api/email/{id}", requirements={"id"="\d+"}, name="api_email_send", methods={"POST"})
-     
-      @OA\Parameter(name="id", in="path", description="code ID",
-          @OA\Schema(type="integer", example="1")
-      )
-     
-      @OA\Response(response=200, description="Код успешно отправлен")
-      @OA\Response(response=400, description="Ошибка при совершении звонка")
-      @OA\Response(response=404, description="Идентификатор авторизации не найден")
-      @OA\Response(response=403, description="Проблема с кодом")
-     
-      @OA\Tag(name="authorization")
- 
+    /**
+     * Отправка кода для авторизации пользователя путем email
+     *
+     * @Route("/api/email/{id}", requirements={"id"="\d+"}, name="api_email_send", methods={"POST"})
+     *
+     * @OA\Parameter(name="id", in="path", description="code ID",
+     *     @OA\Schema(type="integer", example="1")
+     * )
+     *
+     * @OA\Response(response=200, description="Код успешно отправлен")
+     * @OA\Response(response=400, description="Ошибка при совершении звонка")
+     * @OA\Response(response=404, description="Идентификатор авторизации не найден")
+     * @OA\Response(response=403, description="Проблема с кодом")
+     *
+     * @OA\Tag(name="authorization")
+     */
     public function emailAction(
         Request $request,
         SMSServices $SMSServices,

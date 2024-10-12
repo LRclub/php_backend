@@ -44,73 +44,74 @@ class UserController extends BaseApiController
         $this->userEventHistoryServices = $userEventHistoryServices;
     }
 
-   
-      
-       @Route("/api/user", name="api_user_update_data", methods={"PATCH"}))
-      
-       @OA\RequestBody(
-         @OA\MediaType(
-           mediaType="application/json",
-           @OA\Schema(
-             type="object",
-             @OA\Property(property="admin_roles",
-                type="array",
-                description="Роль пользователя",
-                example={"ROLE_ADMIN","ROLE_EDITOR", "ROLE_MODERATOR"},
-                @OA\Items(type="string")
-             ),
-             @OA\Property(property="admin_user_id", type="integer", description="id пользователя", example="2"),
-             @OA\Property(property="admin_is_blocked", type="boolean", description="Блокировка", example="true"),
-             @OA\Property(property="first_name", type="string", description="Имя", example="Иван"),
-             @OA\Property(property="last_name", type="string", description="Фамилия", example="Иванов"),
-             @OA\Property(property="patronymic_name", type="string", description="Отчество", example="Иванович"),
-             @OA\Property(property="phone", type="string", description="Номер телефона", example="+78800553535"),
-             @OA\Property(property="email", type="string", description="Email", example="ivanov@mail.ru"),
-             @OA\Property(property="birthday", type="string", description="Дата рождения", example="1980-10-30"),
-             @OA\Property(property="avatar_id", type="integer", description="ID изображения", example="1"),
-      
-             @OA\Property(property="country_id", type="string", description="Код страны", example="179"),
-             @OA\Property(property="city", type="string", description="Город", example="Москва"),
-             @OA\Property(property="vk", type="string", description="Ссылка на профиль Вконтакте", example=""),
-             @OA\Property(property="telegram", type="string", description="Ссылка на профиль Телеграм", example=""),
-             @OA\Property(property="instagram", type="string", description="Ссылка на профиль Инстаграмм", example=""),
-             @OA\Property(property="ok", type="string", description="Ссылка на профиль Одноклассники", example=""),
-      
-             @OA\Property(property="super_power", type="string", description="Ваша супер-сила", example=""),
-             @OA\Property(property="principles", type="string", description="Ваши ценности/принципы", example=""),
-             @OA\Property(property="description", type="string", description="Чем занимаетесь, ниша, ваш опыт?",
-           example="Работаю в сфере красоты"),
-             @OA\Property(property="interests", type="string", description="Ваши увлечения",
-           example="Увлекаюсь йогой и питанием"),
-      
-             @OA\Property(
-               property="email_new_materials",
-               type="boolval",
-               description="Email новые материалы",
-               example="true"
-             ),
-             @OA\Property(
-               property="email_subscription_history",
-               type="boolval",
-               description="Email подписка",
-               example="true"
-             ),
-             @OA\Property(
-               property="email_notice",
-               type="boolval",
-               description="Email уведомления",
-               example="true"
-             ),
-           )
-         )
-       )
-      
-       @OA\Response(response=200, description="Информация обновлена")
-       @OA\Response(response=401, description="Необходима авторизация")
-      
-       @OA\Tag(name="user")
-       @Security(name="Bearer")
-   
+    /**
+     * Обновление данных пользователя
+     *
+     * @Route("/api/user", name="api_user_update_data", methods={"PATCH"}))
+     *
+     * @OA\RequestBody(
+     *   @OA\MediaType(
+     *     mediaType="application/json",
+     *     @OA\Schema(
+     *       type="object",
+     *       @OA\Property(property="admin_roles",
+     *          type="array",
+     *          description="Роль пользователя",
+     *          example={"ROLE_ADMIN","ROLE_EDITOR", "ROLE_MODERATOR"},
+     *          @OA\Items(type="string")
+     *       ),
+     *       @OA\Property(property="admin_user_id", type="integer", description="id пользователя", example="2"),
+     *       @OA\Property(property="admin_is_blocked", type="boolean", description="Блокировка", example="true"),
+     *       @OA\Property(property="first_name", type="string", description="Имя", example="Иван"),
+     *       @OA\Property(property="last_name", type="string", description="Фамилия", example="Иванов"),
+     *       @OA\Property(property="patronymic_name", type="string", description="Отчество", example="Иванович"),
+     *       @OA\Property(property="phone", type="string", description="Номер телефона", example="+78800553535"),
+     *       @OA\Property(property="email", type="string", description="Email", example="ivanov@mail.ru"),
+     *       @OA\Property(property="birthday", type="string", description="Дата рождения", example="1980-10-30"),
+     *       @OA\Property(property="avatar_id", type="integer", description="ID изображения", example="1"),
+     *
+     *       @OA\Property(property="country_id", type="string", description="Код страны", example="179"),
+     *       @OA\Property(property="city", type="string", description="Город", example="Москва"),
+     *       @OA\Property(property="vk", type="string", description="Ссылка на профиль Вконтакте", example=""),
+     *       @OA\Property(property="telegram", type="string", description="Ссылка на профиль Телеграм", example=""),
+     *       @OA\Property(property="instagram", type="string", description="Ссылка на профиль Инстаграмм", example=""),
+     *       @OA\Property(property="ok", type="string", description="Ссылка на профиль Одноклассники", example=""),
+     *
+     *       @OA\Property(property="super_power", type="string", description="Ваша супер-сила", example=""),
+     *       @OA\Property(property="principles", type="string", description="Ваши ценности/принципы", example=""),
+     *       @OA\Property(property="description", type="string", description="Чем занимаетесь, ниша, ваш опыт?",
+     *     example="Работаю в сфере красоты"),
+     *       @OA\Property(property="interests", type="string", description="Ваши увлечения",
+     *     example="Увлекаюсь йогой и питанием"),
+     *
+     *       @OA\Property(
+     *         property="email_new_materials",
+     *         type="boolval",
+     *         description="Email новые материалы",
+     *         example="true"
+     *       ),
+     *       @OA\Property(
+     *         property="email_subscription_history",
+     *         type="boolval",
+     *         description="Email подписка",
+     *         example="true"
+     *       ),
+     *       @OA\Property(
+     *         property="email_notice",
+     *         type="boolval",
+     *         description="Email уведомления",
+     *         example="true"
+     *       ),
+     *     )
+     *   )
+     * )
+     *
+     * @OA\Response(response=200, description="Информация обновлена")
+     * @OA\Response(response=401, description="Необходима авторизация")
+     *
+     * @OA\Tag(name="user")
+     * @Security(name="Bearer")
+     */
     public function userUpdateAction(
         Request $request,
         CoreSecurity $security,
@@ -127,6 +128,7 @@ class UserController extends BaseApiController
         $is_admin = false;
         $roles = $user->getRoles();
 
+        // Если админ редактирует пользователя
         if ($user->getIsAdmin()) {
             $user_data['user_id'] = (int)$this->getJson($request, 'admin_user_id');
             if (!empty($user_data['user_id'])) {
@@ -140,6 +142,7 @@ class UserController extends BaseApiController
             }
         }
 
+        // Получение данных для User
         $email = (string)$this->getJson($request, 'email');
         $user_data['first_name'] = (string)$this->getJson($request, 'first_name');
         $user_data['last_name'] = (string)$this->getJson($request, 'last_name');
@@ -149,18 +152,22 @@ class UserController extends BaseApiController
         $user_data['birthday'] = (string)$this->getJson($request, 'birthday');
         $user_data['avatar'] = $this->getJson($request, 'avatar_id');
 
+        // Уведомления
         $user_data['email_new_materials'] = (bool)$this->getJson($request, 'email_new_materials');
         $user_data['email_subscription_history'] = (bool)$this->getJson($request, 'email_subscription_history');
         $user_data['email_notice'] = (bool)$this->getJson($request, 'email_notice');
 
+        //Соц. сети
         $user_data['vk'] = trim($this->getJson($request, 'vk'));
         $user_data['telegram'] = trim($this->getJson($request, 'telegram'));
         $user_data['instagram'] = trim($this->getJson($request, 'instagram'));
         $user_data['ok'] = trim($this->getJson($request, 'ok'));
 
+        //Локация
         $user_data['country'] = trim($this->getJson($request, 'country_id'));
         $user_data['city'] = trim($this->getJson($request, 'city'));
 
+        //Текстовое описание
         $user_data['interests'] = trim($this->getJson($request, 'interests')); //это уже есть
         $user_data['description'] = trim($this->getJson($request, 'description')); //это уже есть
         $user_data['super_power'] = trim($this->getJson($request, 'super_power'));
@@ -188,6 +195,7 @@ class UserController extends BaseApiController
                 $email_is_changed = true;
             }
 
+            //Сохранение данных
             try {
                 $userServices->setUpdateData($user, $form, $roles, $email_is_changed, $is_admin);
             } catch (LogicException $e) {
@@ -202,18 +210,19 @@ class UserController extends BaseApiController
         }
     }
 
-   
-      
-       @Route("/api/user", name="api_userinfo", methods={"GET"})
-      
-       @OA\Parameter(in="query", name="id", schema={"type"="integer", "example"=1}, description="ID пользователя"),
-      
-       @OA\Response(response=200, description="Информация предоставлена")
-       @OA\Response(response=401, description="Необходима авторизация")
-      
-       @OA\Tag(name="user")
-       @Security(name="Bearer")
-   
+    /**
+     * Получение текущей информации о ТЕКУЩЕМ пользователе
+     *
+     * @Route("/api/user", name="api_userinfo", methods={"GET"})
+     *
+     * @OA\Parameter(in="query", name="id", schema={"type"="integer", "example"=1}, description="ID пользователя"),
+     *
+     * @OA\Response(response=200, description="Информация предоставлена")
+     * @OA\Response(response=401, description="Необходима авторизация")
+     *
+     * @OA\Tag(name="user")
+     * @Security(name="Bearer")
+     */
     public function userInfoAction(
         CoreSecurity $security,
         UserServices $userServices,
@@ -234,26 +243,27 @@ class UserController extends BaseApiController
         return $this->jsonSuccess(['user' => $result]);
     }
 
-   
-      
-       @Route("/api/user/init", name="api_set_init_data", methods={"POST"})
-      
-       @OA\RequestBody(
-         @OA\MediaType(
-           mediaType="application/json",
-           @OA\Schema(
-             type="object",
-             @OA\Property(property="promo", type="string", description="Промокод", example="")
-           )
-         )
-       )
-      
-       @OA\Response(response=200, description="Информация обновлена")
-       @OA\Response(response=401, description="Необходима авторизация")
-      
-       @OA\Tag(name="user")
-       @Security(name="Bearer")
-   
+    /**
+     * Установка информации о пользователе после регистрации
+     *
+     * @Route("/api/user/init", name="api_set_init_data", methods={"POST"})
+     *
+     * @OA\RequestBody(
+     *   @OA\MediaType(
+     *     mediaType="application/json",
+     *     @OA\Schema(
+     *       type="object",
+     *       @OA\Property(property="promo", type="string", description="Промокод", example="")
+     *     )
+     *   )
+     * )
+     *
+     * @OA\Response(response=200, description="Информация обновлена")
+     * @OA\Response(response=401, description="Необходима авторизация")
+     *
+     * @OA\Tag(name="user")
+     * @Security(name="Bearer")
+     */
     public function setInitDataAction(
         Request $request,
         CoreSecurity $security,
@@ -273,6 +283,7 @@ class UserController extends BaseApiController
             }
         }
 
+        // Сохранение промокода
         if ($promo_entity) {
             $factory = $promocodeActionFactory
                 ->setPromocodeService($promocodeServices)
@@ -288,28 +299,29 @@ class UserController extends BaseApiController
         }
     }
 
-   
-      
-       @Route("/api/user/promo", name="api_user_promo", methods={"POST"})
-      
-       @OA\RequestBody(
-         @OA\MediaType(
-           mediaType="application/json",
-           @OA\Schema(
-             type="object",
-             @OA\Property(property="phone", type="integer", description="Номер телефона", example="+79000001000")
-           )
-         )
-       )
-      
-       @OA\Response(response=200, description="Промокод отправлен")
-       @OA\Response(response=400, description="Ошибка при отправке SMS")
-       @OA\Response(response=403, description="Не удалось отправить приглашение")
-       @OA\Response(response=401, description="Необходима авторизация")
-      
-       @OA\Tag(name="user")
-       @Security(name="Bearer")
-   
+    /**
+     * Отправка приглашения пользователю
+     *
+     * @Route("/api/user/promo", name="api_user_promo", methods={"POST"})
+     *
+     * @OA\RequestBody(
+     *   @OA\MediaType(
+     *     mediaType="application/json",
+     *     @OA\Schema(
+     *       type="object",
+     *       @OA\Property(property="phone", type="integer", description="Номер телефона", example="+79000001000")
+     *     )
+     *   )
+     * )
+     *
+     * @OA\Response(response=200, description="Промокод отправлен")
+     * @OA\Response(response=400, description="Ошибка при отправке SMS")
+     * @OA\Response(response=403, description="Не удалось отправить приглашение")
+     * @OA\Response(response=401, description="Необходима авторизация")
+     *
+     * @OA\Tag(name="user")
+     * @Security(name="Bearer")
+     */
     public function sendpromoAction(
         Request $request,
         CoreSecurity $security,
@@ -356,21 +368,22 @@ class UserController extends BaseApiController
         }
     }
 
-   
-      
-       @Route("/api/user/profile/{id}", requirements={"id"="\d+"}, name="api_user_profiles", methods={"GET"})
-      
-       @OA\Parameter(name="id", in="path", description="ID пользователя",
-           @OA\Schema(type="integer", example="1")
-       )
-      
-       @OA\Response(response=200, description="Информация предоставлена")
-       @OA\Response(response=401, description="Необходима авторизация")
-       @OA\Response(response=404, description="Пользователь не найден")
-      
-       @OA\Tag(name="user")
-       @Security(name="Bearer")
-   
+    /**
+     * Получение текущей информации о пользователе
+     *
+     * @Route("/api/user/profile/{id}", requirements={"id"="\d+"}, name="api_user_profiles", methods={"GET"})
+     *
+     * @OA\Parameter(name="id", in="path", description="ID пользователя",
+     *     @OA\Schema(type="integer", example="1")
+     * )
+     *
+     * @OA\Response(response=200, description="Информация предоставлена")
+     * @OA\Response(response=401, description="Необходима авторизация")
+     * @OA\Response(response=404, description="Пользователь не найден")
+     *
+     * @OA\Tag(name="user")
+     * @Security(name="Bearer")
+     */
     public function userProfileInfoAction(
         UserServices $userServices,
         int $id
