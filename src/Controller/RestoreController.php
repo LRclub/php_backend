@@ -18,8 +18,9 @@ class RestoreController extends BaseApiController
     /**
      * Смена номера
      *
-     * @Route("/restore/", name="restore_phone", methods={"GET"})
      */
+     @Route("/restore/", name="restore_phone", methods={"GET"})
+     
     public function restoreAction(): Response
     {
         return $this->render('/pages/restore/phone/restore_phone.html.twig', [
@@ -29,9 +30,9 @@ class RestoreController extends BaseApiController
 
     /**
      * Актуальность данных для смены номера
-     *
-     * @Route("/restore/{user_id}/{code}", name="restore_confirmation", requirements={"user_id"="\d+"}, methods={"GET"})
      */
+     @Route("/restore/{user_id}/{code}", name="restore_confirmation", requirements={"user_id"="\d+"}, methods={"GET"})
+     
     public function restoreConfirmationAction(int $user_id, string $code, RestoreServices $restoreServices): Response
     {
         $status = $restoreServices->checkCode($user_id, $code);

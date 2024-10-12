@@ -16,9 +16,9 @@ class IndexController extends BaseApiController
 {
     /**
      * Главная страница
-     *
-     * @Route("/", name="index", methods={"GET"})
      */
+     @Route("/", name="index", methods={"GET"})
+     
     public function indexAction(
         CoreSecurity $security,
         MaterialsServices $materialsServices
