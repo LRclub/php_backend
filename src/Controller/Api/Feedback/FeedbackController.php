@@ -25,42 +25,41 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 
 class FeedbackController extends BaseApiController
 {
-    /**
-     * Создание заявки обратной связи
-     *
-     * @Route("/api/feedback", name="api_feedback", methods={"POST"})
-     *
-     * @OA\RequestBody(
-     *   @OA\MediaType(
-     *     mediaType="application/json",
-     *     @OA\Schema(
-     *       type="object",
-     *       @OA\Property(
-     *                  property="title",
-     *                  type="string", description="Заголовок",
-     *                  example="Какие документы требуются для модерации?"
-     *      ),
-     *       @OA\Property(
-     *                  property="message",
-     *                  type="text", description="Сообщение",
-     *                  example="Предоставил паспорт, но модерацию не прошел"
-     *      ),
-     *       @OA\Property(property="files",
-     *          type="array",
-     *          description="Идентификаторы файлов",
-     *          example="[1,2,4]",
-     *          @OA\Items(type="integer", format="int32")
-     *       ),
-     *     )
-     *   )
-     * )
-     *
-     * @OA\Response(response=200, description="Обращение успешно создано")
-     * @OA\Response(response=400, description="Ошибка")
-     *
-     * @OA\Tag(name="feedback")
-     * @Security(name="Bearer")
-     */
+    
+    //    Создание заявки обратной связи
+     @Route("/api/feedback", name="api_feedback", methods={"POST"})
+     
+     @OA\RequestBody(
+         @OA\MediaType(
+           mediaType="application/json",
+           @OA\Schema(
+             type="object",
+             @OA\Property(
+                        property="title",
+                        type="string", description="Заголовок",
+                        example="Какие документы требуются для модерации?"
+            ),
+             @OA\Property(
+                        property="message",
+                        type="text", description="Сообщение",
+                        example="Предоставил паспорт, но модерацию не прошел"
+            ),
+             @OA\Property(property="files",
+                type="array",
+                description="Идентификаторы файлов",
+                example="[1,2,4]",
+                @OA\Items(type="integer", format="int32")
+             ),
+           )
+         )
+       )
+      
+       @OA\Response(response=200, description="Обращение успешно создано")
+       @OA\Response(response=400, description="Ошибка")
+      
+       @OA\Tag(name="feedback")
+       @Security(name="Bearer")
+      
     public function createUserFeedbackAction(
         CoreSecurity $security,
         Request $request,
@@ -87,33 +86,32 @@ class FeedbackController extends BaseApiController
         return $this->jsonSuccess(['result' => true]);
     }
 
-    /**
-     * Редактирование заголовка заявки
-     *
-     * @Route("/api/feedback", name="api_feedback_edit", methods={"PATCH"})
-     *
-     * @OA\RequestBody(
-     *   @OA\MediaType(
-     *     mediaType="application/json",
-     *     @OA\Schema(
-     *       type="object",
-     *       @OA\Property(
-     *                  property="title",
-     *                  type="string", description="Заголовок",
-     *                  example="Какие документы требуются для модерации?"
-     *      ),
-     *       @OA\Property(property="feedback_id", type="integer", description="feedback_id", example="1")
-     *     )
-     *   )
-     * )
-     *
-     * @OA\Response(response=200, description="Заголовок успешно обновлен")
-     * @OA\Response(response=400, description="Обращение закрыто")
-     * @OA\Response(response=403, description="Запрещено, нет прав")
-     *
-     * @OA\Tag(name="feedback")
-     * @Security(name="Bearer")
-     */
+
+      
+       @Route("/api/feedback", name="api_feedback_edit", methods={"PATCH"})
+      
+       @OA\RequestBody(
+         @OA\MediaType(
+           mediaType="application/json",
+           @OA\Schema(
+             type="object",
+             @OA\Property(
+                        property="title",
+                        type="string", description="Заголовок",
+                        example="Какие документы требуются для модерации?"
+            ),
+             @OA\Property(property="feedback_id", type="integer", description="feedback_id", example="1")
+           )
+         )
+       )
+      
+       @OA\Response(response=200, description="Заголовок успешно обновлен")
+       @OA\Response(response=400, description="Обращение закрыто")
+       @OA\Response(response=403, description="Запрещено, нет прав")
+      
+       @OA\Tag(name="feedback")
+       @Security(name="Bearer")
+      
     public function updateFeedbackTitleAction(
         CoreSecurity $security,
         Request $request,
@@ -139,38 +137,37 @@ class FeedbackController extends BaseApiController
         return $this->jsonSuccess(['result' => true]);
     }
 
-    /**
-     * Отправить сообщение
-     *
-     * @Route("/api/feedback/message", name="api_feedback_message_send", methods={"POST"})
-     *
-     * @OA\RequestBody(
-     *   @OA\MediaType(
-     *     mediaType="application/json",
-     *     @OA\Schema(
-     *       type="object",
-     *       @OA\Property(property="feedback_id", type="integer", description="ID чата", example="39"),
-     *       @OA\Property(
-     *                  property="message",
-     *                  type="text", description="Сообщение",
-     *                   example="Предоставил паспорт, но модерацию не прошел"
-     *      ),
-     *       @OA\Property(property="files",
-     *          type="array",
-     *          description="Идентификаторы файлов",
-     *          example="[1,2,4]",
-     *          @OA\Items(type="integer", format="int32")
-     *       ),
-     *     )
-     *   )
-     * )
-     *
-     * @OA\Response(response=200, description="Сообщение успешно отправлено")
-     * @OA\Response(response=400, description="Ошибка")
-     *
-     * @OA\Tag(name="feedback message")
-     * @Security(name="Bearer")
-     */
+
+      
+       @Route("/api/feedback/message", name="api_feedback_message_send", methods={"POST"})
+      
+       @OA\RequestBody(
+         @OA\MediaType(
+           mediaType="application/json",
+           @OA\Schema(
+             type="object",
+             @OA\Property(property="feedback_id", type="integer", description="ID чата", example="39"),
+             @OA\Property(
+                        property="message",
+                        type="text", description="Сообщение",
+                         example="Предоставил паспорт, но модерацию не прошел"
+            ),
+             @OA\Property(property="files",
+                type="array",
+                description="Идентификаторы файлов",
+                example="[1,2,4]",
+                @OA\Items(type="integer", format="int32")
+             ),
+           )
+         )
+       )
+      
+       @OA\Response(response=200, description="Сообщение успешно отправлено")
+       @OA\Response(response=400, description="Ошибка")
+      
+       @OA\Tag(name="feedback message")
+       @Security(name="Bearer")
+      
     public function sendFeedbackMessageAction(
         CoreSecurity $security,
         Request $request,
@@ -202,38 +199,37 @@ class FeedbackController extends BaseApiController
         return $this->jsonSuccess(['result' => $result, 'is_admin' => $is_admin]);
     }
 
-    /**
-     * Редактировать сообщение
-     *
-     * @Route("/api/feedback/message", name="api_feedback_message_edit", methods={"PATCH"})
-     *
-     * @OA\RequestBody(
-     *   @OA\MediaType(
-     *     mediaType="application/json",
-     *     @OA\Schema(
-     *       type="object",
-     *       @OA\Property(property="feedback_message_id", type="integer", description="ID сообщения", example="39"),
-     *       @OA\Property(
-     *                  property="message",
-     *                  type="text", description="Сообщение",
-     *                   example="Предоставил паспорт, но модерацию не прошел"
-     *      ),
-     *       @OA\Property(property="files",
-     *          type="array",
-     *          description="Идентификаторы файлов",
-     *          example="[1,2,4]",
-     *          @OA\Items(type="integer", format="int32")
-     *       ),
-     *     )
-     *   )
-     * )
-     *
-     * @OA\Response(response=200, description="Сообщение успешно изменено")
-     * @OA\Response(response=400, description="Ошибка")
-     *
-     * @OA\Tag(name="feedback message")
-     * @Security(name="Bearer")
-     */
+
+      
+       @Route("/api/feedback/message", name="api_feedback_message_edit", methods={"PATCH"})
+      
+       @OA\RequestBody(
+         @OA\MediaType(
+           mediaType="application/json",
+           @OA\Schema(
+             type="object",
+             @OA\Property(property="feedback_message_id", type="integer", description="ID сообщения", example="39"),
+             @OA\Property(
+                        property="message",
+                        type="text", description="Сообщение",
+                         example="Предоставил паспорт, но модерацию не прошел"
+            ),
+             @OA\Property(property="files",
+                type="array",
+                description="Идентификаторы файлов",
+                example="[1,2,4]",
+                @OA\Items(type="integer", format="int32")
+             ),
+           )
+         )
+       )
+      
+       @OA\Response(response=200, description="Сообщение успешно изменено")
+       @OA\Response(response=400, description="Ошибка")
+      
+       @OA\Tag(name="feedback message")
+       @Security(name="Bearer")
+      
     public function editFeedbackMessageAction(
         CoreSecurity $security,
         Request $request,
@@ -267,27 +263,26 @@ class FeedbackController extends BaseApiController
         return $this->jsonSuccess(['result' => $result, 'is_admin' => $is_admin]);
     }
 
-    /**
-     * Удалить сообщение
-     *
-     * @Route("/api/feedback/message", name="api_feedback_message_delete", methods={"DELETE"})
-     *
-     * @OA\RequestBody(
-     *   @OA\MediaType(
-     *     mediaType="application/json",
-     *     @OA\Schema(
-     *       type="object",
-     *       @OA\Property(property="message_id", type="integer", description="ID сообщения", example="1")
-     *     )
-     *   )
-     * )
-     *
-     * @OA\Response(response=200, description="Сообщение успешно удалено")
-     * @OA\Response(response=400, description="Ошибка")
-     *
-     * @OA\Tag(name="feedback message")
-     * @Security(name="Bearer")
-     */
+
+      
+       @Route("/api/feedback/message", name="api_feedback_message_delete", methods={"DELETE"})
+      
+       @OA\RequestBody(
+         @OA\MediaType(
+           mediaType="application/json",
+           @OA\Schema(
+             type="object",
+             @OA\Property(property="message_id", type="integer", description="ID сообщения", example="1")
+           )
+         )
+       )
+      
+       @OA\Response(response=200, description="Сообщение успешно удалено")
+       @OA\Response(response=400, description="Ошибка")
+      
+       @OA\Tag(name="feedback message")
+       @Security(name="Bearer")
+      
     public function deleteUserFeedbackMessageAction(
         CoreSecurity $security,
         Request $request,
@@ -310,24 +305,24 @@ class FeedbackController extends BaseApiController
         return $this->jsonSuccess(['result' => $result, 'is_admin' => $is_admin]);
     }
 
-    /**
-     * Получение информации о заявке обратной связи
-     *
-     * @Route("/api/feedback/{id}",
-     *          name="api_get_feedback", methods={"GET"},
-     *          requirements={"id"="\d+"}
-     *        )
-     *
-     * @OA\Parameter(name="id", in="path", description="ID заявки",
-     *     @OA\Schema(type="integer", example="1")
-     * )
-     *
-     * @OA\Response(response=200, description="Информация предоставлена")
-     * @OA\Response(response=400, description="Пустой id feedback")
-     *
-     * @OA\Tag(name="feedback")
-     * @Security(name="Bearer")
-     */
+    
+       
+      
+       @Route("/api/feedback/{id}",
+                name="api_get_feedback", methods={"GET"},
+                requirements={"id"="\d+"}
+              )
+      
+       @OA\Parameter(name="id", in="path", description="ID заявки",
+           @OA\Schema(type="integer", example="1")
+       )
+      
+       @OA\Response(response=200, description="Информация предоставлена")
+       @OA\Response(response=400, description="Пустой id feedback")
+      
+       @OA\Tag(name="feedback")
+       @Security(name="Bearer")
+      
     public function getUserFeedbackAction(
         CoreSecurity $security,
         Request $request,
@@ -348,31 +343,30 @@ class FeedbackController extends BaseApiController
         return $this->jsonSuccess(['result' => $result]);
     }
 
-    /**
-     * Список обращений в обратную связь у пользователя
-     *
-     * @Route(path="/api/feedback/requests/", name="api_user_feedback_requests", methods={"GET"})
-     *
-     * @OA\Get(path="/api/feedback/requests?", operationId="getFeedbackRequestsAction"),
-     *
-     * @OA\Parameter(
-     *              in="query", name="page",
-     *               schema={"type"="integer", "example"=1},
-     *              description="Номер страницы. По умолчанию = 1"
-     *              ),
-     * @OA\Parameter(
-     *              in="query", name="closed",
-     *              schema={"type"="boolean", "example"=false},
-     *              description="Статус обращения. Можно не указывать, по умолчанию false"
-     *              )
-     *
-     * @OA\Response(response=200, description="Заявки получены")
-     * @OA\Response(response=400, description="Ошибка валидации")
-     * @OA\Response(response=401, description="Необходима авторизация")
-     *
-     * @OA\Tag(name="feedback")
-     * @Security(name="Bearer")
-     */
+    
+      
+       @Route(path="/api/feedback/requests/", name="api_user_feedback_requests", methods={"GET"})
+      
+       @OA\Get(path="/api/feedback/requests?", operationId="getFeedbackRequestsAction"),
+      
+       @OA\Parameter(
+                    in="query", name="page",
+                     schema={"type"="integer", "example"=1},
+                    description="Номер страницы. По умолчанию = 1"
+                    ),
+       @OA\Parameter(
+                    in="query", name="closed",
+                    schema={"type"="boolean", "example"=false},
+                    description="Статус обращения. Можно не указывать, по умолчанию false"
+                    )
+      
+       @OA\Response(response=200, description="Заявки получены")
+       @OA\Response(response=400, description="Ошибка валидации")
+       @OA\Response(response=401, description="Необходима авторизация")
+      
+       @OA\Tag(name="feedback")
+       @Security(name="Bearer")
+      
     public function getFeedbackRequestsAction(
         CoreSecurity $security,
         Request $request,
@@ -388,22 +382,21 @@ class FeedbackController extends BaseApiController
         return $this->jsonSuccess(['result' => $result['result'], 'resultTotalCount' => $result['result_total_count']]);
     }
 
-    /**
-     * Закрыть обращение в обратную связь
-     *
-     * @Route("/api/feedback/{id}", requirements={"id"="\d+"}, name="api_feedback_close", methods={"DELETE"})
-     *
-     * @OA\Parameter(name="id", in="path", description="ID заявки",
-     *     @OA\Schema(type="integer", example="1")
-     * )
-     *
-     * @OA\Response(response=200, description="Обращение успешно закрыто")
-     * @OA\Response(response=400, description="Обращение не существует либо закрыто")
-     *
-     * @OA\Tag(name="feedback")
-     * @OA\Tag(name="admin feedback")
-     * @Security(name="Bearer")
-     */
+    
+      
+       @Route("/api/feedback/{id}", requirements={"id"="\d+"}, name="api_feedback_close", methods={"DELETE"})
+      
+       @OA\Parameter(name="id", in="path", description="ID заявки",
+           @OA\Schema(type="integer", example="1")
+       )
+      
+       @OA\Response(response=200, description="Обращение успешно закрыто")
+       @OA\Response(response=400, description="Обращение не существует либо закрыто")
+      
+       @OA\Tag(name="feedback")
+       @OA\Tag(name="admin feedback")
+       @Security(name="Bearer")
+      
     public function closeFeedbackAction(
         Request $request,
         CoreSecurity $security,
