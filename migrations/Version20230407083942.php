@@ -24,9 +24,9 @@ final class Version20230407083942 extends AbstractMigration
         $this->addSql('ALTER TABLE likes_collector ADD CONSTRAINT FK_AC55E9B9E308AC6F FOREIGN KEY (material_id) REFERENCES materials (id)');
         $this->addSql('ALTER TABLE likes_collector ADD CONSTRAINT FK_AC55E9B9D0ED463E FOREIGN KEY (stream_id) REFERENCES materials (id)');
         $this->addSql('ALTER TABLE likes_collector ADD CONSTRAINT FK_AC55E9B9F8697D13 FOREIGN KEY (comment_id) REFERENCES comments (id)');
-        $this->addSql('CREATE INDEX IDX_AC55E9B9E308AC6F ON likes_collector (material_id)');
-        $this->addSql('CREATE INDEX IDX_AC55E9B9D0ED463E ON likes_collector (stream_id)');
-        $this->addSql('CREATE INDEX IDX_AC55E9B9F8697D13 ON likes_collector (comment_id)');
+        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_AC55E9B9E308AC6F ON likes_collector (material_id)');
+        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_AC55E9B9D0ED463E ON likes_collector (stream_id)');
+        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_AC55E9B9F8697D13 ON likes_collector (comment_id)');
     }
 
     public function down(Schema $schema): void

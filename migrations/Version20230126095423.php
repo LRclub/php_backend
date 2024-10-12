@@ -26,6 +26,6 @@ final class Version20230126095423 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_F211125077153098 ON promocodes (code)');
+        $this->addSql('CREATE UNIQUE INDEX IF NOT EXISTS UNIQ_F211125077153098 ON promocodes (code)');
     }
 }

@@ -22,7 +22,7 @@ final class Version20230407083747 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE streams ADD likes_collector_id INT NOT NULL');
         $this->addSql('ALTER TABLE streams ADD CONSTRAINT FK_FFF7AFA3873EDDD FOREIGN KEY (likes_collector_id) REFERENCES likes_collector (id)');
-        $this->addSql('CREATE INDEX IDX_FFF7AFA3873EDDD ON streams (likes_collector_id)');
+        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_FFF7AFA3873EDDD ON streams (likes_collector_id)');
     }
 
     public function down(Schema $schema): void

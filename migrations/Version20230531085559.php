@@ -22,7 +22,7 @@ final class Version20230531085559 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE files ADD specialist_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE files ADD CONSTRAINT FK_63540597B100C1A FOREIGN KEY (specialist_id) REFERENCES specialists (id)');
-        $this->addSql('CREATE INDEX IDX_63540597B100C1A ON files (specialist_id)');
+        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_63540597B100C1A ON files (specialist_id)');
         $this->addSql('ALTER TABLE specialists ADD is_deleted TINYINT(1) DEFAULT NULL');
     }
 

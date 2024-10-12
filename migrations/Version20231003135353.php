@@ -22,7 +22,7 @@ final class Version20231003135353 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE invoice ADD recurrent_parent_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE invoice ADD CONSTRAINT FK_90651744B5F04D7E FOREIGN KEY (recurrent_parent_id) REFERENCES invoice (id)');
-        $this->addSql('CREATE INDEX IDX_90651744B5F04D7E ON invoice (recurrent_parent_id)');
+        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_90651744B5F04D7E ON invoice (recurrent_parent_id)');
     }
 
     public function down(Schema $schema): void

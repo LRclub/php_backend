@@ -20,7 +20,7 @@ final class Version20230126095928 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE UNIQUE INDEX code_unique ON promocodes (code, action)');
+        $this->addSql('CREATE UNIQUE INDEX IF NOT EXISTS code_unique ON promocodes (code, action)');
     }
 
     public function down(Schema $schema): void

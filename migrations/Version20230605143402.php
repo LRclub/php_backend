@@ -22,7 +22,7 @@ final class Version20230605143402 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE specialists_requests ADD specialist_id INT NOT NULL');
         $this->addSql('ALTER TABLE specialists_requests ADD CONSTRAINT FK_B79291E57B100C1A FOREIGN KEY (specialist_id) REFERENCES specialists (id)');
-        $this->addSql('CREATE INDEX IDX_B79291E57B100C1A ON specialists_requests (specialist_id)');
+        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_B79291E57B100C1A ON specialists_requests (specialist_id)');
     }
 
     public function down(Schema $schema): void

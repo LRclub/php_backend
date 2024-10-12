@@ -36,6 +36,6 @@ final class Version20230426125342 extends AbstractMigration
         $this->addSql('ALTER TABLE streams ADD CONSTRAINT FK_FFF7AFAF4EDC0EF FOREIGN KEY (comments_collector_id) REFERENCES comments_collector (id)');
         $this->addSql('ALTER TABLE likes_collector ADD stream_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE likes_collector ADD CONSTRAINT FK_AC55E9B9D0ED463E FOREIGN KEY (stream_id) REFERENCES streams (id)');
-        $this->addSql('CREATE INDEX IDX_AC55E9B9D0ED463E ON likes_collector (stream_id)');
+        $this->addSql('CREATE INDEX IF NOT EXISTS IDX_AC55E9B9D0ED463E ON likes_collector (stream_id)');
     }
 }
