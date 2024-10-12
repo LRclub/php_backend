@@ -24,7 +24,7 @@ use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation\Security;
 
 class FeedbackController extends BaseApiController
-{
+
     
     //    Создание заявки обратной связи
      @Route("/api/feedback", name="api_feedback", methods={"POST"})
